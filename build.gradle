@@ -1,9 +1,12 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
-group 'com.nikpappas'
-version '1.0-SNAPSHOT'
+group 'com.nikpappas.utils'
+archivesBaseName = "Utils"
+version '1.0.0'
 
 repositories {
     mavenCentral()
@@ -16,4 +19,65 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.java
+                pom {
+                    signing {
+                        sign publishing.publications.release
+                        sign configurations.archives
+                    }
+                    name = 'Utils'
+                    description = 'A utility library for java'
+                    url = 'https://github.com/nikpappas/utils'
+                    licenses {
+                        license {
+                            name = 'GNU General Public License v3.0'
+                            url  ='https://www.gnu.org/licenses/gpl-3.0.html'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'nikpappas'
+                            name = 'Nikolaos Pappas'
+                            email = 'hello@nikpappa.com'
+                        }
+                    }
+                    scm {
+                        connection = 'https://github.com/nikpappas/utils.git'
+                        developerConnection = 'https://github.com/nikpappas/utils.git'
+                        url = 'https://github.com/nikpappas/utils'
+                    }
+                }
+            }
+        }
+
+        repositories {
+            def relRepo ="https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+             def snapRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+
+            maven {
+                print getProperty('ossrhUsername')
+                url = version.endsWith('SNAPSHOT') ? snapRepo : relRepo
+                credentials {
+                    username = getProperty('ossrhUsername')
+                    password = getProperty('ossrhPassword')
+                }
+            }
+        }
+    }
 }
