@@ -16,6 +16,26 @@ public class Trio<T> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Trio<?> trio = (Trio<?>) o;
+
+        if (_1 != null ? !_1.equals(trio._1) : trio._1 != null) return false;
+        if (_2 != null ? !_2.equals(trio._2) : trio._2 != null) return false;
+        return _3 != null ? _3.equals(trio._3) : trio._3 == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _1 != null ? _1.hashCode() : 0;
+        result = 31 * result + (_2 != null ? _2.hashCode() : 0);
+        result = 31 * result + (_3 != null ? _3.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "(" +
                 _1 + "," +

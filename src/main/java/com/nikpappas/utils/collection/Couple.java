@@ -15,6 +15,25 @@ public class Couple<T> {
         return new Couple<>(_1, _2);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Couple<?> couple = (Couple<?>) o;
+
+        if (_1 != null ? !_1.equals(couple._1) : couple._1 != null) return false;
+        return _2 != null ? _2.equals(couple._2) : couple._2 == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _1 != null ? _1.hashCode() : 0;
+        result = 31 * result + (_2 != null ? _2.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "(" + _1 + ", " + _2 + ')';
