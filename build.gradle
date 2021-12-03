@@ -8,6 +8,8 @@ group 'com.nikpappas.utils'
 archivesBaseName = "Utils"
 version '1.0.1-SNAPSHOT'
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 repositories {
     mavenCentral()
 }
@@ -47,7 +49,7 @@ afterEvaluate {
                     licenses {
                         license {
                             name = 'GNU General Public License v3.0'
-                            url  ='https://www.gnu.org/licenses/gpl-3.0.html'
+                            url = 'https://www.gnu.org/licenses/gpl-3.0.html'
                         }
                     }
                     developers {
@@ -67,8 +69,8 @@ afterEvaluate {
         }
 
         repositories {
-            def relRepo ="https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-             def snapRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            def relRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 
             maven {
                 print getProperty('ossrhUsername')
